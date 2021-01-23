@@ -139,7 +139,6 @@ server.post("/register", (req, res, next) => {
 server.get("/balance", (req, res, next) => {
   const document = req.query.document;
   const phone = req.query.phone;
-  console.log("pepe roba codigo", req.user);
 
   User.findOne({
     where: { document: document, phone: phone },
@@ -148,18 +147,14 @@ server.get("/balance", (req, res, next) => {
     .then((data) => {
       res.send(data);
     })
-    .catch((next) => {
-      console.log("se rompio todo");
-    });
+    .catch(next);
 });
 
 //aqui traemos los datos del user a partir de su document
 server.get("/:document", (req, res, next) => {
-  console.log("pepe ladron", req.user);
   const document = req.params.document;
   User.findOne({ where: { document: document }, include: [{ model: Account }] })
     .then((data) => {
-      console.log(data);
       res.send(data);
     })
     .catch(next);
@@ -178,6 +173,7 @@ server.put("/", (req, res, next) => {
         phone: req.body.phone,
       });
       Account.create({ balance: 0, userId: data.id });
+      res.send(data);
     })
     .catch(next);
 });
@@ -186,7 +182,6 @@ server.put("/", (req, res, next) => {
 server.post("/login", async (req, res, next) => {
   passport.authenticate("login", async (err, user, info) => {
     try {
-      console.log(user.dataValues);
       return res.json({
         user: user.dataValues,
         token: jwt.sign(user.dataValues, SECRET),
@@ -204,7 +199,7 @@ server.put("/paytoken", (req, res, next) => {
     var tokenNumber = Math.ceil(Math.random() * 1000000);
 
     const user = data.dataValues;
-    console.log("el user es", user);
+
     data
       .update({ tokenNum: tokenNumber })
       .then((data) => {

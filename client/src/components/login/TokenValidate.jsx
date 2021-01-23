@@ -4,15 +4,11 @@ import { useHistory } from "react-router-dom";
 
 export default function TokenValidate(props) {
   const [input, setInput] = useState(0);
-  console.log(props.location.state);
   const state = props.location.state;
   const { push } = useHistory();
 
   const handleRegister = () => {
     axios.get(`http://localhost:3000/user/${state.document}`).then((data) => {
-      console.log(data);
-      console.log(data.data.tokenNum);
-      console.log(input);
       if (parseInt(input.token, 10) != data.data.tokenNum) {
         alert("El numero ingresado no coincide!");
       } else {
@@ -24,8 +20,6 @@ export default function TokenValidate(props) {
           lastName: state.lastName,
           phone: state.phone,
         });
-
-        console.log("usuario creado con exito!");
         alert("Usuario creado con exito!");
         push("/");
       }
@@ -34,7 +28,6 @@ export default function TokenValidate(props) {
 
   const handlePayment = () => {
     axios.get(`http://localhost:3000/user/${state.document}`).then((data) => {
-      console.log("data payment cheta", data);
       if (parseInt(input.token, 10) != data.data.tokenNum) {
         alert("El numero ingresado no coincide!");
       } else {

@@ -19,16 +19,14 @@ passport.use(
       User.findOne({ where: { email } })
         .then((user) => {
           if (!user) {
-            console.log("NO HAY USUARIO");
             return done(null, false, {
               message: "Usuario no encontrado o inexistente.",
             });
           }
           if (!user.correctPassword(password)) {
-            console.log("CONTRASEÑA EQUIVOCADA");
             return done(null, false, { message: "Contraseña invalida" });
           }
-          console.log("TODO OK");
+
           return done(null, user, { message: "Bienvenido de nuevo" });
         })
         .catch((err) => done(err));

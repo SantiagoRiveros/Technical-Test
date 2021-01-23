@@ -14,7 +14,6 @@ server.post("/:userId", (req, res, next) => {
 
 //cambiar el balance de la cuenta
 server.put("/", (req, res, next) => {
-  console.log(req.body);
   const document = req.body.document;
   const amount = req.body.amount;
   const type = req.body.type;

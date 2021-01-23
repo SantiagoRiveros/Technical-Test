@@ -19,12 +19,10 @@ export default function Balance() {
           input
         )
         .then((data) => {
-          console.log(data.data.account.balance);
           setInput({ amount: data.data.account.balance });
           setActive(!active);
         })
         .catch((error) => {
-          console.log("nose que le pinta");
           alert("Alguno de los datos es invalido");
         });
     }

@@ -25,7 +25,6 @@ export default function Payments() {
       axios
         .put(`http://localhost:3000/user/paytoken`)
         .then((data) => {
-          console.log("que pinta?");
           push({
             pathname: "/main/tokenvalidate",
             state: {
@@ -36,7 +35,7 @@ export default function Payments() {
           });
         })
         .catch((error) => {
-          console.log(error);
+          alert(error);
         });
     }
   };

@@ -5,7 +5,6 @@ import { useHistory } from "react-router-dom";
 export default function Login({ setLocalUser }) {
   const [input, setInput] = useState({ email: "", password: "" });
   const { push } = useHistory();
-  console.log(setLocalUser);
 
   const handleChange = (e) => {
     setInput({
@@ -21,8 +20,6 @@ export default function Login({ setLocalUser }) {
       axios.post(`http://localhost:3000/user/login`, input).then((data) => {
         setLocalUser(data.data);
         alert("logueado!");
-        console.log("estas logueado");
-        console.log(data);
         setInput({ email: "", password: "" });
         push("/main");
       });
